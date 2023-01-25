@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Documentation</title>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Business Logic</th>
+                <th>Endpoint URL</th>
+                <th>HTTP Method</th>
+                <th>Query Parameters</th>
+                <th>Request Body Data Format</th>
+                <th>Response Body Data Format</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Return a list of ALL movies to the user</td>
+                <td>/movies</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>None</td>
+                <td>A JSON Object holding data about all movies.</td>
+            </tr>
+
+            <tr>
+                <td>Return data about a single movie by title to the user</td>
+                <td>/movies/[Title]</td>
+                <td>GET</td>
+                <td>[Title] as the title/name of the movie</td>
+                <td>None</td>
+                <td>A JSON Object holding data about a single movie, example:<br>
+                    <pre>
+        {
+          "Title": "Movie",
+          "Description": "Description",
+          "Genre": {
+            "Name": "Genre",
+            "Description": "Description",
+          },
+          "Director": {
+            "Name": "Director",
+            "Bio": "Bio",
+            "Birthyear": "1990"
+          },
+          "ImageURL": "pic.jpeg",
+          "Featured": true
+        }</pre>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Return data about a genre by name/title</td>
+                <td>/movies/genre/[Genre]</td>
+                <td>GET</td>
+                <td>[Genre] being name of genre, like Thriller</td>
+                <td>None</td>
+                <td>A JSON Object holding data about a specific genre, example:<br>
+                    <pre>
+          {
+            "Name": "Genre",
+            "Description": "Description"
+          }
+        </pre>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Return data about a director by name</td>
+                <td>/movies/directors/[Name]</td>
+                <td>GET</td>
+                <td>[Name] being the name of the director</td>
+                <td>None</td>
+                <td>A JSON Object holding data about a specific director, example:<br>
+                    <pre>
+          {
+            "Name": "Director",
+            "Bio": "Description",
+            "Birthyear": "1990"
+          }
+        </pre>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Allow new users to register</td>
+                <td>/users</td>
+                <td>POST</td>
+                <td>None</td>
+                <td>A JSON Object structured like:<br>
+                    <pre>
+          {
+            "Username": "Name",
+            "Password": "Password",
+            "Email": "e@mail.com"
+          }</pre>
+                </td>
+                <td>A JSON Object holding this new user's data, including generating a unique id, example:<br>
+                    <pre>
+          {
+            "Username": "Name",
+            "Password": "Password",
+            "Email": "e@mail.com",
+            "FavoriteMovies": [],
+            "_id": "xxx"
+          }
+        </pre>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Allow users to update their user info</td>
+                <td>/users/[username]</td>
+                <td>PUT</td>
+                <td>[username] being the username of an existing user</td>
+                <td>A JSON Object with the updated information, like:<br>
+                    <pre>
+          {
+            "Username": "Name",
+            "Password": "Password",
+            "Email": "e@mail.com"
+          }
+        </pre>
+                </td>
+                <td>A JSON Object holding the user's updated data, example:<br>
+                    <pre>
+          {
+            "Username": "Name",
+            "Password": "Password",
+            "Email": "e@mail.com",
+            "FavoriteMovies": [],
+            "_id": "xxx"
+          }
+        </pre>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Allow users to add a movie to their list of favorites</td>
+                <td>/users/[username]/[id]</td>
+                <td>POST</td>
+                <td>[username] of the user, followed by the movie [id] which can be found in its JSON object</td>
+                <td>None</td>
+                <td>A JSON Object of the user, with FavoriteMovies updated.</td>
+            </tr>
+
+            <tr>
+                <td>Allow users to remove a movie from their list of favorites</td>
+                <td>/users/[username]/[id]</td>
+                <td>DELETE</td>
+                <td>[username] of the user, followed by the movie [id] which can be found in its JSON object</td>
+                <td>None</td>
+                <td>A JSON Object of the user, with FavoriteMovies updated.</td>
+            </tr>
+
+            <tr>
+                <td>Allow existing users to deregister</td>
+                <td>/users/[username]</td>
+                <td>DELETE</td>
+                <td>[username] being the existing user's username</td>
+                <td>None</td>
+                <td>A text message confirming that the user has been deleted.</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+</body>
+
+</html>
