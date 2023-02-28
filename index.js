@@ -10,6 +10,10 @@ app.use(bodyParser.json());
 app.use(morgan('common'));
 app.use(express.static('public'));
 
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
 mongoose.connect('mongodb://localhost:27017/qFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Movies = Models.Movie;
@@ -22,7 +26,7 @@ app.get('/', (req, res) => {
 })
 
 // Return a list of ALL movies to the user
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.find()
         .then((movies) => {
             res.status(201).json(movies);
@@ -147,7 +151,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 })
 
 // Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later);
-app.delete('users/:Username/movies/:MovieID', (req, res) => {
+app.delete('/users/:Username/movies/:MovieID', (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
         $pull: { FavoriteMovies: req.params.MovieID }
     },
