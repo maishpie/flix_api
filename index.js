@@ -18,7 +18,11 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
-mongoose.connect('mongodb://localhost:27017/qFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+//local access
+// mongoose.connect('mongodb://localhost:27017/qFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+//render+mongodbatlas access
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Movies = Models.Movie;
 const Users = Models.User;
