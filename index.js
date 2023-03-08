@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 })
 
 // Return a list of ALL movies to the user
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.find()
         .then((movies) => {
             res.status(201).json(movies);
@@ -82,16 +82,16 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false
 })
 
 //REMOVE-DEV only
-app.get('/users', (req, res) => {
-    Users.find()
-        .then((users) => {
-            res.status(201).json(users);
-        })
-        .catch((err) => {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
-        });
-})
+// app.get('/users', (req, res) => {
+//     Users.find()
+//         .then((users) => {
+//             res.status(201).json(users);
+//         })
+//         .catch((err) => {
+//             console.error(err);
+//             res.status(500).send('Error: ' + err);
+//         });
+// })
 
 // Allow new users to register
 app.post('/users', [
